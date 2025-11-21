@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Elias - Projects</title>
+    <link rel="stylesheet" href="top.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Fira Code', monospace;
+            background-color: #282c33;
+            color: #ffffff;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1366px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Header Styles */
+        .header {
+            background-color: #282c33;
+            padding: 24px 0;
+            
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 170px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .logo img {
+            width: 16px;
+            height: 16px;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: #c778dd;
+        }
+
+        .nav-item:not(.active) {
+            color: #abb2bf;
+        }
+
+        .nav-item:hover {
+            color: #c778dd;
+        }
+
+        .nav-hash {
+            color: #c778dd;
+            margin-right: 4px;
+        }
+
+        .lang-selector {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #abb2bf;
+            font-weight: 600;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 10px;
+            top: 0;
+            width: 50px;
+            height: 100vh;
+            background-color: #282c33;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0;
+            z-index: 100;
+        }
+
+        .sidebar-line {
+           width: 1px;
+            height: 250px;
+            background-color: #abb2bf;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .sidebar-icons img {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-icons img:hover {
+            transform: scale(1.5);
+        }
+        .footer-icons img {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease; 
+            margin-right:10px ;
+        }
+        .footer-icons img:hover {
+            transform: scale(1.5);
+        }
+        /* Main Content */
+        .main-content {
+            padding: 52px 170px 0;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            margin-bottom: 48px;
+        }
+
+        .page-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .page-title .hash {
+            font-size: 32px;
+            font-weight: 600;
+            color: #c778dd;
+            margin-right: 20px;
+        }
+
+        .page-title .title {
+            font-size: 32px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .page-subtitle {
+            font-size: 16px;
+            color: #ffffff;
+            margin-left: 1px;
+        }
+
+        /* Decorative Elements */
+        .dots-pattern {
+            position: absolute;
+            right: 78px;
+            top: 256px;
+        }
+
+        .dots-row {
+            display: flex;
+            gap: 22px;
+            margin-bottom: 15px;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            background-color: #abb2bf;
+            border-radius: 2px;
+        }
+
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 48px;
+        }
+
+        .section-header .hash {
+            font-size: 32px;
+            font-weight: 500;
+            color: #c778dd;
+            margin-right: 20px;
+        }
+
+        .section-header .title {
+            font-size: 32px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        /* Project Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 48px;
+            margin-bottom: 48px;
+        }
+
+        .project-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 48px;
+        }
+
+        /* Project Cards */
+        .project-card {
+            border: 1px solid #abb2bf;
+            background-color: #282c33;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height:420px
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-tech {
+            padding: 8px;
+            border-top: 1px solid #abb2bf;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .tech-tag {
+            font-size: 16px;
+            color: #abb2bf;
+        }
+
+        .project-content {
+            padding: 16px;
+            border-top: 1px solid #abb2bf;
+        }
+
+        .project-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #ffffff;
+            margin-bottom: 14px;
+        }
+
+        .project-description {
+            font-size: 16px;
+            color: #abb2bf;
+            margin-bottom: 14px;
+            line-height: 1.3;
+        }
+
+        .btn {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: 1px solid;
+            background: transparent;
+            font-size: 16px;
+            font-weight: 500;
+            font-family: 'Fira Code', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn {
+            border-color: #c778dd;
+            color: #ffffff;
+        }
+
+        .btn:hover {
+            background-color: #c778dd;
+            color: #282c33;
+        }
+
+        .btn.secondary {
+            border-color: #abb2bf;
+            color: #abb2bf;
+        }
+
+        .btns:hover {
+            background-color: #abb2bf;
+            color: #282c33;
+        }
+
+        /* Small Projects */
+        .small-projects {
+            margin-top: 48px;
+        }
+
+        .small-project-card {
+            border: 1px solid #abb2bf;
+            background-color: #282c33;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            width: 400px;
+        }
+
+        .small-project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .small-project-tech {
+            padding: 8px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .small-project-content {
+            padding: 16px;
+            border-top: 1px solid #abb2bf;
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 186px;
+            border-top: 1px solid #abb2bf;
+            padding: 32px 0;
+        }
+
+        .footer-content {
+            padding: 0 170px;
+        }
+
+        .footer-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 48px;
+        }
+
+        .footer-info {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 34%;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .footer-logo img {
+            width: 72px;
+            height: 20px;
+        }
+
+        .footer-email {
+            font-size: 16px;
+            color: #abb2bf;
+            text-decoration: none;
+        }
+
+        .footer-description {
+            font-size: 16px;
+            color: #ffffff;
+        }
+
+        .footer-media {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .footer-media-title {
+            font-size: 24px;
+            font-weight: 500;
+            color: #ffffff;
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 8px;
+        }
+
+        .footer-social img {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease;
+        }
+
+        .footer-social img:hover {
+            transform: scale(1.1);
+        }
+
+        .footer-copyright {
+            text-align: center;
+            font-size: 16px;
+            color: #abb2bf;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header-content,
+            .main-content,
+            .footer-content {
+                padding-left: 32px;
+                padding-right: 32px;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .dots-pattern {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap;
+                gap: 16px;
+                justify-content: center;
+            }
+
+            .main-content,
+            .footer-content {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+
+            .project-row {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+
+            }
+            .section-header{
+                margin-right: 230px;
+            }
+
+            .project-image{
+                height:200px;
+                width:450px;
+            }
+            .projects-grid{
+                max-width: 450px;
+            }
+        
+            .footer-main {
+                flex-direction: column;
+                gap: 32px;
+            }
+
+            .footer-info {
+                width: 100%;
+            }
+
+            .page-title .hash,
+            .page-title .title,
+            .section-header .hash,
+            .section-header .title {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .project-buttons {
+                flex-direction: column;
+            }
+
+            .project-button {
+                text-align: center;
+            }
+
+            .footer-logo {
+                flex-direction: column;
+                gap: 16px;
+                align-items: flex-start;
+            }
+        }
+        .nav1{
+            text-decoration: none;
+            color:white;
+        }
+        .nav1:hover{
+            color:#c778dd;
+            transition: .5s;
+        }
+        .sidebar-icon {
+            width: 32px;
+            height: 32px;
+            transition: transform 0.3s ease;
+            filter: grayscale(100%);
+        }
+         
+        .sidebar-icon:hover {
+            transform: scale(1.5);
+            filter:none;
+        }
+        
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Fnithishs4375back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body>
+     <button onclick="scrollToTop()" id="backToTopBtn" title="Go to top"><img src="top.png" alt=""></button>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <a href="home.html"><img src="../assets/images/img_union.svg" alt="Logo" />
+                <span class="logo-text">Nithish</span></a>
+            </div>
+            
+           
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-line"></div>
+        <div class="sidebar-icons">
+            <a href="https://github.com/Nithishkum" target="_blank"><img src="github_color.svg" alt="GitHub" class="sidebar-icon" /></a>
+            <a href="https://www.linkedin.com/in/nithish-kumar-036442290/"><img src="linkedin-color.png" alt="linkedin" class="sidebar-icon" /></a>
+            
+        </div>
+    </div>
+
+    <!-- Decorative Dots -->
+    <div class="dots-pattern">
+        <div class="dots-row">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="dots-row">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="dots-row">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="dots-row">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="dots-row">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="page-title">
+                <span class="hash">/</span>
+                <span class="title">projects</span>
+            </div>
+            <p class="page-subtitle">List of my projects</p>
+        </div>
+
+        <!-- Complete Apps Section -->
+        <section>
+            <div class="section-header">
+                <span class="hash">#</span>
+                <span class="title">complete-apps</span>
+            </div>
+            
+            <div class="projects-grid">
+                <div class="project-row">
+                    <!-- ChertNodes -->
+                    <div class="project-card">
+                        <img src="../assets/images/gpt.png" alt="gpt" class="project-image" />
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Langchain</span>
+                            <span class="tech-tag">Streamlit</span>
+                           
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">N-GPT</h3>
+                            <p class="project-description">Generative AI Chatbot</p>
+                            <div class="project-buttons">
+                            <a href="https://github.com/Nithishkum/generative-chatbot" class="btn">Github ~></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kahoot Answers -->
+                    <div class="project-card">
+                        <img src="../assets/images/quiz.png" alt="Kahoot Answers" class="project-image" />
+                        <div class="project-tech">
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">JS</span>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Quiz App</h3>
+                            <p class="project-description">Quiz Applications</p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/quiz" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                   <br>
+        <div class="small">
+
+        <!-- Small Projects Section -->
+        <section class="small-projects">
+            <div class="section-header">
+                <span class="hash">#</span>
+                <span class="title">small-projects</span>
+            </div>
+            
+            <div class="projects-grid" >
+                <div class="project-row" style="display: flex;">
+                    <!-- Bot Boilerplate -->
+                    <div class="small-project-card" >
+                        <div class="small-project-tech">
+                            <span class="tech-tag">Android</span>
+                            <span class="tech-tag">XML</span>
+                            <span class="tech-tag">Java</span>
+                        </div>
+                        <div class="small-project-content">
+                            <h3 class="project-title">Calculator App</h3>
+                            <p class="project-description">Simple calculator app calculates basic arithmetic calculations</p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/OIBSIP/tree/master/calculator" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Blog -->
+                    <div class="small-project-card">
+                        <div class="small-project-tech">
+                            <span class="tech-tag">Android</span>
+                            <span class="tech-tag">XML</span>
+                            <span class="tech-tag">Java</span>
+                        </div>
+                        <div class="small-project-content">
+                            <h3 class="project-title">Stopwatch</h3>
+                            <p class="project-description">Simple Stopwatch timer</p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/OIBSIP/tree/master/stopwatch" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chess Pro -->
+                    <div class="small-project-card">
+                        <div class="small-project-tech">
+                            <span class="tech-tag">Android</span>
+                            <span class="tech-tag">XML</span>
+                            <span class="tech-tag">Java</span>
+                        </div>
+                        <div class="small-project-content">
+                            <h3 class="project-title">Unit Converter</h3>
+                            <p class="project-description">Convert various Units</p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/OIBSIP/tree/master/UnitConvertor" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+
+
+            <div class="projects-grid" >
+                <div class="project-row" style="display: flex;">
+                    <!-- Bot Boilerplate -->
+                    <div class="small-project-card" >
+                        <div class="small-project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">CSS</span>
+                            <span class="tech-tag">HTML</span>
+                           
+                        </div>
+                        <div class="small-project-content">
+                            <h3 class="project-title">PHP Functions</h3>
+                            <p class="project-description">Functions in PHP </p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/php-functions" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- My Blog -->
+                    <div class="small-project-card">
+                        <div class="small-project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                            
+                        </div>
+                        <div class="small-project-content">
+                            <h3 class="project-title">Login page</h3>
+                            <p class="project-description">Maintain session</p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/session-php" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chess Pro -->
+                    <div class="small-project-card">
+                        <div class="small-project-tech">
+                            <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">HTML</span>
+                            <span class="tech-tag">CSS</span>
+                          
+                            <span class="tech-tag">MySQL</span>
+                        </div>
+                        <div class="small-project-content">
+                            <h3 class="project-title">Student Marklist</h3>
+                            <p class="project-description">Calculate Student marklist</p>
+                            <div class="project-buttons">
+                                <a href="https://github.com/Nithishkum/student-marklist-php" class="btn">Github &lt;~&gt;</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+        
+        </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-main">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <a href="home.html" style="display: flex;"><img src="../assets/images/img_union.svg" alt="Elias Logo" /><span class="logo-text">Nithish</span></a>
+                        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=nithishkumardeveloper01@gmail.com" class="footer-email">nithishkumardeveloper01@gmail.com</a>
+                    </div>
+                    <p class="footer-description">Junior software developer</p>
+                </div>
+                <div class="footer-media">
+                    <h3 class="footer-media-title">Media</h3>
+                    <div class="footer-icons" style="display: flex;"> 
+                        <a href="https://www.github.com/Nithishkum" ><img src="github_color.svg" alt="GitHub" class="sidebar-icon" /></a>
+                        <a href="https://www.linkedin.com/in/nithish-kumar-036442290/"><img src="linkedin-color.png" alt="linkedin" class="sidebar-icon" /></a>
+                        
+                    </div>
+                </div>
+            </div>
+            <p class="footer-copyright">© Copyright 2022. Made by Nithish</p>
+        </div>
+    </footer>
+
+   
+
+    <script>
+        // Add smooth scrolling for navigation links
+        document.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Remove active class from all nav items
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+            });
+        });
+
+        // Add hover effects to project cards
+        document.querySelectorAll('.project-card, .small-project-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-4px)';
+                this.style.boxShadow = '0 8px 24px rgba(0, 0, 0, 0.3)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = 'none';
+            });
+        });
+
+        // Add click handlers for project buttons
+        document.querySelectorAll('.project-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.preventDefault();
+                console.log('Button clicked:', this.textContent);
+                // Add your navigation logic here
+            });
+        });
+    </script>
+    <script src="scroll.js"></script>
+</body>
+</html>
